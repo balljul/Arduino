@@ -4,6 +4,8 @@
 void setup(){
 	pinMode(A5, INPUT);
   pinMode(3, OUTPUT);
+
+  Serial.begin(9600);
 }
 
 // im loop lese ich zuerst den photowiederstand ein und wandle den eingelesenen Wert in den wertebereich 0 bis 255 um.
@@ -11,8 +13,12 @@ void setup(){
 void loop(){
 
   int measuredLight = analogRead(A5);
-  int lightLevel = map(measuredLight, 26, 923, 0, 255);
+  Serial.println(measuredLight);
+  delay(2000);
+  int lightLevel = map(measuredLight, 0, 1023, 0, 255);
+  Serial.println(lightLevel);
   
+
   analogWrite(3, lightLevel);
 
 }
