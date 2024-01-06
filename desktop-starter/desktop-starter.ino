@@ -1,6 +1,7 @@
 #include <Keyboard.h>
 
 const int safetyPin = 4;
+int counter = 0;
 
 void setup() 
 {
@@ -12,7 +13,15 @@ void setup()
 void loop() 
 {
     if(digitalRead(safetyPin) == LOW) {
-        Serial.println("Executing main logic");
+        if(counter < 1){
+            Serial.println("Executing main logic");
+            Keyboard.print("");
+            Keyboard.print('\n');
+            counter = counter + 1;
+        }
+        else {
+            Serial.println("Already done");
+        }
     }
     else {
         Serial.println("Doing nothing");
@@ -24,14 +33,24 @@ void loop()
 void navigate_to_desktop(char desktop_num) 
 {
     Keyboard.press(KEY_LEFT_GUI);
-    Keyboard.press(desktop_num);
+    Keyboard.print(desktop_num);
     Keyboard.releaseAll();
-    //Serial.println("Switched to a desktop");
+    delay(20);
 }
 
 void open_terminal()
 {
     Keyboard.press(KEY_LEFT_GUI);
-    Keyboard.press('\n');
-    //Serial.println("Opened Terminal");
+    Keyboard.print('\n');
+    Keyboard.releaseAll();
+    Keyboard.print("htop");
+    Keyboard.print('\n');
+    delay(20);
+}
+
+void execute(String message)
+{
+    Keyboard.print(message); 
+    Keyboard.print('\n');
+    delay(20);
 }
