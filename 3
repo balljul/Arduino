@@ -1,0 +1,25 @@
+#include <Keyboard.h>
+
+void Setup() 
+{
+    Keyboard.begin();
+    Serial.begin(9600);
+}
+
+void loop() 
+{
+    navigate_to_desktop('0');
+}
+
+void navigate_to_desktop(char desktop_num) 
+{
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(desktop_num);
+    Keyboard.releaseAll();
+}
+
+void open_terminal()
+{
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press('\n');
+}
